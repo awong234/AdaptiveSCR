@@ -67,3 +67,9 @@ There are five model scripts, one for each of the models described above in the 
 ### Analysis scripts
 
 Again, there are five scripts for performing the analysis of the data under each sampling scheme. These are the files following the pattern `MODEL1_rerun.R`, `MODEL2_rerun.R`, `MODEL3_rerun.R`, etc. They automatically extract the data from the .Rdata libraries, and perform the JAGS analysis using the corresponding model .txt file. The script features ordinary parallelization using `doParallel`, and will generate a log indicating what analyses have been completed in the event of unexpected shutdown. 
+
+### Analysis outputs
+
+The scripts will produce their own folders in which the model outputs may reside. As a warning, the outputs are the full JAGS model outputs, which includes the entire MCMC chain. On 1000 simulated replicates, each model will have a complete output collection of approximately 3 GB in size - ensure that enough space is allocated for these. 
+
+The time to completion for these analyses is on the order of weeks, and the rate-limiting step is the JAGS analysis. There has been no optimization of the code, nor exploration into alternative analytical software.
