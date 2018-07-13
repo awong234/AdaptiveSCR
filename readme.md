@@ -29,16 +29,16 @@ The repository contains R scripts that simulate spatial capture-recapture data u
 
 The script to perform the simulation of the populations, and simulate captures is `AS_dataset_sim_v4.7.R`. There are a number of default values so that the function to perform the simulation is `AS.simulator()` may be run without arguments. This function has no side-effects, instead opting to generate data libraries from which the analysis scripts will draw.
 
-The population is simulated simply as a Poisson random variable at `R` total populations (can be defined in the arguments; the default is `R = 10` for easy viewing of the data). The index variable is simulated as a Poisson random variable with the mean equal to `cov.mult * N[r]`, where `r` is one of the `R` populations; `cov.mult = 3` by default.
+The population matrix `Nmat` is simulated simply as a Poisson random variable at `R` total populations (can be defined in the arguments; the default is `R = 10` for easy viewing of the data). It has dimension `R x A`, where `A` is the total number of replicated simulations, set to 3 by default. The index variables are simulated as a Poisson random variable with the mean equal to `cov.mult * Nmat[r,a]`, where `r` is one of the `R` populations, and `a` is the current simulation index; `cov.mult = 3` by default. It has the same dimension as `Nmat`.
 
-Based upon the population matrix `N`, animal activity centers are generated on a space of dimension:
+Based upon the population matrix `Nmat`, animal activity centers are generated on a space of the follwing dimensions:
 
 ```
 xlim<- c(-1, 4)
 ylim<- c(-1, 5)
 ```
 
-having uniform random positions.
+They are simulated as having uniform random positions.
 
 ### Capture simulation 
 
@@ -47,6 +47,8 @@ The simulation for the captures are more involved, and have three main sections:
 * The full sampling procedure (not indicated by comments, follows immediately after activity center simulation), used by Model 3 and Model 4, where captures are simulated at all `R` sites.
 * The subset sampling procedure (indicated by "BEGIN SUBSET DATA SECTION"), which simulates captures at a subset of the `R` sites, conditional on the index variable, used by Model 1 and Model 2.
 * The SRS sampling procedure (indicated by "BEGIN MODEL 5 DATA SECTION"), which simulates captures at a subset of the `R` sites, equal to the number of sites sampled by the corresponding adaptive sample simulation, but selected randomly (**not** conditional on index variable)
+
+Binomial sampling is employed with probability modeled as a function of distance between the activity center and the observation location, and number of successes equal to `K`, the number of observations (`K = 3` by default.)
 
 #### Output files
 
