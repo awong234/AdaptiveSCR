@@ -1,0 +1,3 @@
+# Simulator for Adaptively-sampled Spatial Capture-Recapture
+
+The repository contains R scripts that simulate spatial capture-recapture data under three different sampling schemes (adaptively sampled, fully sampled, and simple-random sampled), and analyze the data under 5 different models representing the three sampling schemes plus configurations including index values (+ post-fixes), and ignoring index values (- post-fixes).
