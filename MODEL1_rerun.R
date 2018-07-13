@@ -68,6 +68,12 @@ jagsrun = function(a){
   write(a, file = "MODEL1_OUT\\Sims_completed.txt", ncolumns = 1, append = TRUE)
 }
 
+# Check if output folder exists -- if not, create it
+if (!dir.exists("MODEL1_OUT")) {
+  dir.create("MODEL1_OUT")
+  file.create("MODEL1_OUT\\Sims_completed.txt")
+}
+
 # Completed simulation #'s; which simulations already completed?
 
 A.del = as.numeric(readLines("MODEL1_OUT\\Sims_completed.txt"))
